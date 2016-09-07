@@ -1,5 +1,6 @@
 package com.example.bluesky.app.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -194,7 +195,20 @@ public class ItemListDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_total)
     public void buy(View view) {
+        Intent intent = new Intent(this, PayActivity.class);
+        String price="";
+        if (storageItems != null && storageItems.size() > 0) {
+            for (int i = 0; i < storageItems.size(); i++) {
+                if (storageItems.get(i).getSourceId().equals(id)) {
+                    price = storageItems.get(i).getPrice();
+                }
+            }
+        }else{
+            price= itemsBeans.getComponent().getPrice();
 
+        }
+        intent.putExtra("total_money",price );
+        startActivity(intent);
     }
 
     public void queryData() {
