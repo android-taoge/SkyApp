@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -97,13 +96,13 @@ public class ShoppingCartAdapter extends BaseAdapter {
         viewHolder.tv_description.setText(cartItemList.get(position).getDescription());
         viewHolder.tv_price.setText(cartItemList.get(position).getPrice() + "元");
         viewHolder.tv_num.setText(String.valueOf(cartItemList.get(position).getNum()));
-        viewHolder.checkBox.setChecked((mChecked.get(position) == true ? true : false));
-        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        viewHolder.checkBox.setChecked((mChecked.get(position)));
+        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                 if (mOnSelectItemListener!=null){
-                     mOnSelectItemListener.onSelectItemListener(position,isChecked);
-                 }
+            public void onClick(View v) {
+                if (mOnSelectItemListener!=null){
+                    mOnSelectItemListener.onSelectItemListener(position,viewHolder.checkBox.isChecked());
+                }
             }
         });
         viewHolder.tv_asc.setOnClickListener(new View.OnClickListener() {
